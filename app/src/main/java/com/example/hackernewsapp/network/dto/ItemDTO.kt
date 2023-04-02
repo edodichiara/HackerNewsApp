@@ -38,7 +38,7 @@ data class ItemDTO(
             id = this.id,
             idComments = this.kids ?: emptyList(),
             score = this.score,
-            time = Date(this.time),
+            time = Date(this.time * 1000),
             title = this.title,
             type = this.type,
             url = this.url ?: ""
