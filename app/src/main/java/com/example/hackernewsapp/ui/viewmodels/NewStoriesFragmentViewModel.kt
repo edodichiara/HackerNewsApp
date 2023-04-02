@@ -23,7 +23,7 @@ class NewStoriesFragmentViewModel @Inject constructor(private val storyRepositor
             try {
                 _storyListResult.value =
                     StoryListResult.Success(storyRepository.getNewStoriesList())
-                Log.d("Retrieve stories", "retrieveStories: ${storyRepository.getNewStoriesList().first()}")
+                Log.d("Retrieve stories", "retrieveStories: ${storyRepository.getNewStoriesList()}")
             } catch (e: java.lang.Exception) {
                 _storyListResult.value = StoryListResult.Error(e)
                 Log.d("Retrieve stories", "retrieveStories: ${e}")
