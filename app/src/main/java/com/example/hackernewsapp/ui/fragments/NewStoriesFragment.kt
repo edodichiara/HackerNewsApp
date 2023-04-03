@@ -1,12 +1,13 @@
 package com.example.hackernewsapp.ui.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hackernewsapp.databinding.FragmentNewStoriesBinding
@@ -57,7 +58,7 @@ class NewStoriesFragment : Fragment() {
                                     binding.fragmentNewStory,
                                     "Connection Error",
                                     Snackbar.LENGTH_INDEFINITE
-                                ).setAction("Retry"){
+                                ).setAction("Retry") {
                                     viewModel.retrieveNewStories()
                                 }.show()
                                 if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
@@ -80,7 +81,7 @@ class NewStoriesFragment : Fragment() {
                                     binding.fragmentNewStory,
                                     "Connection Error",
                                     Snackbar.LENGTH_INDEFINITE
-                                ).setAction("Retry"){
+                                ).setAction("Retry") {
                                     viewModel.retrieveNewStories()
                                 }.show()
                                 if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
@@ -103,7 +104,7 @@ class NewStoriesFragment : Fragment() {
                                     binding.fragmentNewStory,
                                     "Connection Error",
                                     Snackbar.LENGTH_INDEFINITE
-                                ).setAction("Retry"){
+                                ).setAction("Retry") {
                                     viewModel.retrieveNewStories()
                                 }.show()
                                 if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
@@ -128,7 +129,17 @@ class NewStoriesFragment : Fragment() {
     }
 
     private fun setupUi(data: List<StoryModel>) {
-        val storyListAdapter = StoryListAdapter(data)
+        val storyListAdapter = StoryListAdapter(data) {
+            if (it.url.length > 4) {
+                val urlIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(it.url)
+                )
+                startActivity(urlIntent)
+            } else {
+                Toast.makeText(requireContext(), "Invalid link", Toast.LENGTH_LONG).show()
+            }
+        }
         binding.recyclerView.apply {
             layoutManager =
                 LinearLayoutManager(

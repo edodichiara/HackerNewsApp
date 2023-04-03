@@ -9,7 +9,7 @@ import com.example.hackernewsapp.model.StoryModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class StoryListAdapter(private val listOfStories: List<StoryModel>) : RecyclerView.Adapter<StoryListAdapter.ItemViewHolder>() {
+class StoryListAdapter(private val listOfStories: List<StoryModel>, private val onItemCLick: (StoryModel) -> Unit) : RecyclerView.Adapter<StoryListAdapter.ItemViewHolder>() {
     class ItemViewHolder(var binding: StoryItemBinding): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -26,13 +26,16 @@ class StoryListAdapter(private val listOfStories: List<StoryModel>) : RecyclerVi
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         with(holder){
-            with(position){
+            with(listOfStories[position]){
                 holder.binding.apply {
                     title.text = itemView.context.getString(R.string.title, listOfStories[position].title)
                     author.text = itemView.context.getString(R.string.author, listOfStories[position].author)
                     date.text = itemView.context.getString(R.string.date, simpleDateFormat.format(listOfStories[position].time))
                     numbersOfLike.text = itemView.context.getString(R.string.numbersOfLike, listOfStories[position].score)
                     numbersOfComment.text = itemView.context.getString(R.string.numbers_of_comment, listOfStories[position].totalCommentsCount)
+                }
+                binding.showNews.setOnClickListener {
+                    onItemCLick(this)
                 }
             }
         }

@@ -123,6 +123,30 @@
                 android:textSize="16sp"
                 android:fontFamily="@font/rubik_light"
                 android:textColor="@color/my_blue_grey"/>
+            
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/my_light_grey"
+                app:layout_constraintTop_toBottomOf="@id/date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginVertical="8dp"/>
+
+            <TextView
+                android:id="@+id/show_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/line"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/show_news"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:textSize="18sp"
+                android:fontFamily="@font/rubik"
+                android:textColor="@color/my_blue_grey"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

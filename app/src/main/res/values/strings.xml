@@ -9,4 +9,5 @@
     <string name="date">%s</string>
     <string name="numbersOfLike">%d</string>
     <string name="numbers_of_comment">%d</string>
+    <string name="show_news">SHOW NEWS</string>
 </resources>
