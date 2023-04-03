@@ -34,6 +34,7 @@ class NewStoriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val pos = arguments?.getInt(POSITION_ARGUMENT)
         observeRepo(pos)
+        setPullToRefresh()
     }
 
     private fun observeRepo(pos: Int?) {
@@ -44,12 +45,18 @@ class NewStoriesFragment : Fragment() {
                     viewModel.newStoryListResult.observe(viewLifecycleOwner) {
                         binding.loadingProgressbar.hide()
                         when (it) {
-                            is StoryListResult.Success -> setupUi(it.data)
-                            is StoryListResult.Error -> Toast.makeText(
-                                requireContext(),
-                                "Errore di rete",
-                                Toast.LENGTH_LONG
-                            ).show()
+                            is StoryListResult.Success -> {
+                                setupUi(it.data)
+                                if(binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing = false
+                            }
+                            is StoryListResult.Error -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Errore di rete",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                if(binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing = false
+                            }
                         }
                     }
                 }
@@ -57,12 +64,18 @@ class NewStoriesFragment : Fragment() {
                     viewModel.topStoryListResult.observe(viewLifecycleOwner) {
                         binding.loadingProgressbar.hide()
                         when (it) {
-                            is StoryListResult.Success -> setupUi(it.data)
-                            is StoryListResult.Error -> Toast.makeText(
-                                requireContext(),
-                                "Errore di rete",
-                                Toast.LENGTH_LONG
-                            ).show()
+                            is StoryListResult.Success -> {
+                                setupUi(it.data)
+                                if(binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing = false
+                            }
+                            is StoryListResult.Error -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Errore di rete",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                if(binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing = false
+                            }
                         }
                     }
                 }
@@ -70,12 +83,18 @@ class NewStoriesFragment : Fragment() {
                     viewModel.bestStoryListResult.observe(viewLifecycleOwner) {
                         binding.loadingProgressbar.hide()
                         when (it) {
-                            is StoryListResult.Success -> setupUi(it.data)
-                            is StoryListResult.Error -> Toast.makeText(
-                                requireContext(),
-                                "Errore di rete",
-                                Toast.LENGTH_LONG
-                            ).show()
+                            is StoryListResult.Success -> {
+                                setupUi(it.data)
+                                if(binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing = false
+                            }
+                            is StoryListResult.Error -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Errore di rete",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                if(binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing = false
+                            }
                         }
                     }
                 }
@@ -103,6 +122,12 @@ class NewStoriesFragment : Fragment() {
                     false
                 )
             adapter = storyListAdapter
+        }
+    }
+
+    private fun setPullToRefresh(){
+        binding.swipeToRefresh.setOnRefreshListener {
+            viewModel.retrieveNewStories()
         }
     }
 
