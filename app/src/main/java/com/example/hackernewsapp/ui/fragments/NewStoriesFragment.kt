@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.hackernewsapp.R
-import com.example.hackernewsapp.databinding.FragmentHomeScreenBinding
 import com.example.hackernewsapp.databinding.FragmentNewStoriesBinding
 import com.example.hackernewsapp.model.StoryModel
 import com.example.hackernewsapp.ui.adapter.StoryListAdapter
@@ -28,16 +26,69 @@ class NewStoriesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNewStoriesBinding.inflate(layoutInflater)
-        viewModel.retrieveStories()
-        observeRepo()
+        viewModel.retrieveNewStories()
         return binding.root
     }
 
-    fun observeRepo(){
-        viewModel.storyListResult.observe(viewLifecycleOwner){
-            when(it){
-                is StoryListResult.Success -> setupUi(it.data)
-                is StoryListResult.Error -> Toast.makeText(requireContext(), "Errore di rete", Toast.LENGTH_LONG).show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val pos = arguments?.getInt(POSITION_ARGUMENT)
+        observeRepo(pos)
+    }
+
+    private fun observeRepo(pos: Int?) {
+        binding.loadingProgressbar.show()
+        pos?.let { position ->
+            when (position) {
+                0 -> {
+                    viewModel.newStoryListResult.observe(viewLifecycleOwner) {
+                        binding.loadingProgressbar.hide()
+                        when (it) {
+                            is StoryListResult.Success -> setupUi(it.data)
+                            is StoryListResult.Error -> Toast.makeText(
+                                requireContext(),
+                                "Errore di rete",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                }
+                1 -> {
+                    viewModel.topStoryListResult.observe(viewLifecycleOwner) {
+                        binding.loadingProgressbar.hide()
+                        when (it) {
+                            is StoryListResult.Success -> setupUi(it.data)
+                            is StoryListResult.Error -> Toast.makeText(
+                                requireContext(),
+                                "Errore di rete",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                }
+                2 -> {
+                    viewModel.bestStoryListResult.observe(viewLifecycleOwner) {
+                        binding.loadingProgressbar.hide()
+                        when (it) {
+                            is StoryListResult.Success -> setupUi(it.data)
+                            is StoryListResult.Error -> Toast.makeText(
+                                requireContext(),
+                                "Errore di rete",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    companion object{
+        var POSITION_ARGUMENT = "position_arg"
+        @JvmStatic
+        fun newIstance(position: Int) = NewStoriesFragment().apply {
+            arguments = Bundle().apply {
+                putInt(POSITION_ARGUMENT, position)
             }
         }
     }

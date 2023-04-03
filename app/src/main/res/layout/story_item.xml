@@ -31,7 +31,8 @@
                 tools:text="A Midwestern Insurance Salesman Cornered the Classic Car Market"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:fontFamily="@font/rubik_bold"/>
+                android:fontFamily="@font/rubik_bold"
+                android:textColor="@color/my_dark_grey"/>
 
             <TextView
                 android:id="@+id/author"
@@ -42,7 +43,8 @@
                 tools:text="SirLJ"
                 android:fontFamily="@font/rubik"
                 android:layout_marginTop="@dimen/margin_top_textview1"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textColor="@color/my_light_grey"/>
 
             <TextView
                 android:id="@+id/date"
@@ -53,7 +55,8 @@
                 tools:text="02/04/2023"
                 android:fontFamily="@font/rubik_light"
                 android:layout_marginTop="@dimen/margin_top_textview1"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textColor="@color/my_blue_grey"/>
 
             <include
                 android:id="@+id/dot_icon"
@@ -64,7 +67,7 @@
                 app:layout_constraintTop_toTopOf="@id/date"
                 app:layout_constraintBottom_toBottomOf="@id/date"
                 android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"/>
+                android:layout_marginEnd="4dp" />
 
             <ImageView
                 android:id="@+id/like"
@@ -73,7 +76,7 @@
                 app:layout_constraintStart_toEndOf="@id/dot_icon"
                 app:layout_constraintTop_toTopOf="@id/date"
                 app:layout_constraintBottom_toBottomOf="@id/date"
-                android:src="@drawable/baseline_thumb_up_24"/>
+                android:src="@drawable/baseline_thumb_up_24" />
 
             <TextView
                 android:id="@+id/numbers_of_like"
@@ -85,7 +88,8 @@
                 android:layout_marginStart="4dp"
                 android:text="123"
                 android:textSize="16sp"
-                android:fontFamily="@font/rubik_light"/>
+                android:fontFamily="@font/rubik_light"
+                android:textColor="@color/my_blue_grey"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

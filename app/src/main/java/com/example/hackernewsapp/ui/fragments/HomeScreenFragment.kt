@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
+import com.example.hackernewsapp.R
 import com.example.hackernewsapp.databinding.FragmentHomeScreenBinding
 import com.example.hackernewsapp.ui.adapter.ViewPagerAdapter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,8 +29,15 @@ class HomeScreenFragment : Fragment() {
     }
 
     fun setupViewPager(){
+        val tabNames = listOf("New Stories", "Top Stories", "Best Stories")
         val viewPager: ViewPager2 = binding.viewPager
+        val tabLayout: TabLayout = binding.tabLayout
+
         val adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         viewPager.adapter = adapter
+        TabLayoutMediator(tabLayout, viewPager){ tab, position ->
+            tab.text = tabNames[position]
+        }.attach()
+
     }
 }
