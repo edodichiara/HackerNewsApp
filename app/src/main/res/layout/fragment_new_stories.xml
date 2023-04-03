@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragments.NewStoriesFragment">
+    tools:context=".ui.fragments.NewStoriesFragment"
+    android:id="@+id/fragment_new_story">
 
     <androidx.core.widget.ContentLoadingProgressBar
         style="@style/Widget.AppCompat.ProgressBar"

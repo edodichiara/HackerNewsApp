@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -13,13 +14,14 @@ import com.example.hackernewsapp.model.StoryModel
 import com.example.hackernewsapp.ui.adapter.StoryListAdapter
 import com.example.hackernewsapp.ui.viewmodels.NewStoriesFragmentViewModel
 import com.example.hackernewsapp.utils.StoryListResult
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NewStoriesFragment : Fragment() {
     private var _binding: FragmentNewStoriesBinding? = null
     private val binding get() = _binding!!
-    private val viewModel : NewStoriesFragmentViewModel by viewModels()
+    private val viewModel: NewStoriesFragmentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,15 +49,19 @@ class NewStoriesFragment : Fragment() {
                         when (it) {
                             is StoryListResult.Success -> {
                                 setupUi(it.data)
-                                if(binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing = false
+                                if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
+                                    false
                             }
                             is StoryListResult.Error -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Errore di rete",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                if(binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing = false
+                                Snackbar.make(
+                                    binding.fragmentNewStory,
+                                    "Connection Error",
+                                    Snackbar.LENGTH_INDEFINITE
+                                ).setAction("Retry"){
+                                    viewModel.retrieveNewStories()
+                                }.show()
+                                if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
+                                    false
                             }
                         }
                     }
@@ -66,15 +72,19 @@ class NewStoriesFragment : Fragment() {
                         when (it) {
                             is StoryListResult.Success -> {
                                 setupUi(it.data)
-                                if(binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing = false
+                                if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
+                                    false
                             }
                             is StoryListResult.Error -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Errore di rete",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                if(binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing = false
+                                Snackbar.make(
+                                    binding.fragmentNewStory,
+                                    "Connection Error",
+                                    Snackbar.LENGTH_INDEFINITE
+                                ).setAction("Retry"){
+                                    viewModel.retrieveNewStories()
+                                }.show()
+                                if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
+                                    false
                             }
                         }
                     }
@@ -85,15 +95,19 @@ class NewStoriesFragment : Fragment() {
                         when (it) {
                             is StoryListResult.Success -> {
                                 setupUi(it.data)
-                                if(binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing = false
+                                if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
+                                    false
                             }
                             is StoryListResult.Error -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Errore di rete",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                if(binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing = false
+                                Snackbar.make(
+                                    binding.fragmentNewStory,
+                                    "Connection Error",
+                                    Snackbar.LENGTH_INDEFINITE
+                                ).setAction("Retry"){
+                                    viewModel.retrieveNewStories()
+                                }.show()
+                                if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
+                                    false
                             }
                         }
                     }
@@ -102,8 +116,9 @@ class NewStoriesFragment : Fragment() {
         }
     }
 
-    companion object{
+    companion object {
         var POSITION_ARGUMENT = "position_arg"
+
         @JvmStatic
         fun newIstance(position: Int) = NewStoriesFragment().apply {
             arguments = Bundle().apply {
@@ -125,7 +140,7 @@ class NewStoriesFragment : Fragment() {
         }
     }
 
-    private fun setPullToRefresh(){
+    private fun setPullToRefresh() {
         binding.swipeToRefresh.setOnRefreshListener {
             viewModel.retrieveNewStories()
         }

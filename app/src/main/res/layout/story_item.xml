@@ -91,6 +91,38 @@
                 android:fontFamily="@font/rubik_light"
                 android:textColor="@color/my_blue_grey"/>
 
+            <include
+                android:id="@+id/dot_icon2"
+                layout="@layout/dot_icon"
+                android:layout_height="8dp"
+                android:layout_width="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/numbers_of_like"
+                app:layout_constraintTop_toTopOf="@id/date"
+                app:layout_constraintBottom_toBottomOf="@id/date"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp" />
+
+            <ImageView
+                android:id="@+id/comments"
+                android:layout_width="18dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/dot_icon2"
+                app:layout_constraintTop_toTopOf="@id/date"
+                app:layout_constraintBottom_toBottomOf="@id/date"
+                android:src="@drawable/baseline_message_24" />
+
+            <TextView
+                android:id="@+id/numbers_of_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/comments"
+                app:layout_constraintTop_toTopOf="@id/date"
+                app:layout_constraintBottom_toBottomOf="@id/date"
+                android:layout_marginStart="4dp"
+                android:text="123"
+                android:textSize="16sp"
+                android:fontFamily="@font/rubik_light"
+                android:textColor="@color/my_blue_grey"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

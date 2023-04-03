@@ -32,6 +32,7 @@ class StoryListAdapter(private val listOfStories: List<StoryModel>) : RecyclerVi
                     author.text = itemView.context.getString(R.string.author, listOfStories[position].author)
                     date.text = itemView.context.getString(R.string.date, simpleDateFormat.format(listOfStories[position].time))
                     numbersOfLike.text = itemView.context.getString(R.string.numbersOfLike, listOfStories[position].score)
+                    numbersOfComment.text = itemView.context.getString(R.string.numbers_of_comment, listOfStories[position].totalCommentsCount)
                 }
             }
         }
