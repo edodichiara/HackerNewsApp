@@ -148,6 +148,16 @@
                 android:fontFamily="@font/rubik"
                 android:textColor="@color/my_blue_grey"/>
 
+            <ToggleButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/toggle_button_selector"
+                app:layout_constraintTop_toTopOf="@id/date"
+                app:layout_constraintBottom_toBottomOf="@id/date"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textOff=""
+                android:textOn="" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
