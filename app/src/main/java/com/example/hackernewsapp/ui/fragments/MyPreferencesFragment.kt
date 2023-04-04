@@ -36,19 +36,28 @@ class MyPreferencesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeRepo()
+        setPullToRefresh()
     }
 
     private fun observeRepo() {
         viewModel.newStoryListResult.observe(viewLifecycleOwner) {
             when (it) {
-                is StoryListResult.Success -> setupUi(it.data)
-                is StoryListResult.Error -> Snackbar.make(
-                    binding.fragmentMyPref,
-                    "Connection Error",
-                    Snackbar.LENGTH_INDEFINITE
-                ).setAction("Retry") {
-                    viewModel.retrieveNewStories()
-                }.show()
+                is StoryListResult.Success -> {
+                    setupUi(it.data)
+                    if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
+                        false
+                }
+                is StoryListResult.Error -> {
+                    Snackbar.make(
+                        binding.fragmentMyPref,
+                        "Connection Error",
+                        Snackbar.LENGTH_INDEFINITE
+                    ).setAction("Retry") {
+                        viewModel.retrieveNewStories()
+                    }.show()
+                    if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
+                        false
+                }
             }
         }
     }
@@ -79,6 +88,12 @@ class MyPreferencesFragment : Fragment() {
                     false
                 )
             adapter = storyListAdapter
+        }
+    }
+
+    private fun setPullToRefresh() {
+        binding.swipeToRefresh.setOnRefreshListener {
+            viewModel.retrieveNewStories()
         }
     }
 }
