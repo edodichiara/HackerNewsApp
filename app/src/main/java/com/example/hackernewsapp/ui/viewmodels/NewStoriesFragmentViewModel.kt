@@ -39,7 +39,6 @@ class NewStoriesFragmentViewModel @Inject constructor(private val storyRepositor
                 _newStoryListResult.value = StoryListResult.Error(e)
                 _topStoryListResult.value = StoryListResult.Error(e)
                 _bestStoryListResult.value = StoryListResult.Error(e)
-                Log.d("Retrieve stories", "retrieveStories: ${e}")
             }
         }
     }
@@ -50,7 +49,6 @@ class NewStoriesFragmentViewModel @Inject constructor(private val storyRepositor
 
     fun deleteStoryFromMyFavourite(id: Int){
         storyRepository.deletePreference(id)
-        Log.d("delete story", "deleteStoryFromMyFavourite: $id")
     }
 
     fun getStoriesFromMyFavourite(): List<Int> {

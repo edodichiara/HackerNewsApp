@@ -10,9 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.hackernewsapp.R
 import com.example.hackernewsapp.databinding.FragmentMyPreferencesBinding
-import com.example.hackernewsapp.databinding.FragmentNewStoriesBinding
 import com.example.hackernewsapp.model.StoryModel
 import com.example.hackernewsapp.ui.adapter.StoryListAdapter
 import com.example.hackernewsapp.ui.viewmodels.MyPreferencesFragmentViewModel
@@ -41,8 +39,8 @@ class MyPreferencesFragment : Fragment() {
     }
 
     private fun observeRepo() {
-        viewModel.newStoryListResult.observe(viewLifecycleOwner){
-            when(it){
+        viewModel.newStoryListResult.observe(viewLifecycleOwner) {
+            when (it) {
                 is StoryListResult.Success -> setupUi(it.data)
                 is StoryListResult.Error -> Snackbar.make(
                     binding.fragmentMyPref,
@@ -56,7 +54,13 @@ class MyPreferencesFragment : Fragment() {
     }
 
     private fun setupUi(data: List<StoryModel>) {
-        val storyListAdapter = StoryListAdapter(data, viewModel.getStoriesFromMyFavourite(), {},{}){
+        val storyListAdapter = StoryListAdapter(data, viewModel.getStoriesFromMyFavourite(),
+            {
+                viewModel.saveStoryOnMyFavourite(it)
+            },
+            {
+                viewModel.deleteStoryFromMyFavourite(it)
+            }) {
             if (it.url.length > 4) {
                 val urlIntent = Intent(
                     Intent.ACTION_VIEW,

@@ -20,4 +20,24 @@ class MyPreferencesRepository @Inject constructor(private val myPreferences: MyP
         } as MutableList<StoryModel>
         return listOfStoryModel
     }
+
+    fun savePreference(id: Int){
+        val list: MutableList<Int> = (if (myPreferences.getFavouriteList().isNullOrEmpty()){
+            emptyList()
+        } else {
+            myPreferences.getFavouriteList()
+        })?.toMutableList() ?: mutableListOf()
+        list.add(id)
+        myPreferences.saveFavouriteList(list.distinct())
+    }
+
+    fun deletePreference(id: Int){
+        val list: MutableList<Int> = (if (myPreferences.getFavouriteList().isNullOrEmpty()){
+            emptyList()
+        } else {
+            myPreferences.getFavouriteList()
+        })?.toMutableList() ?: mutableListOf()
+        list.remove(id)
+        myPreferences.saveFavouriteList(list)
+    }
 }

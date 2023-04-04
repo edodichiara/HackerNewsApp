@@ -131,10 +131,8 @@ class NewStoriesFragment : Fragment() {
     private fun setupUi(data: List<StoryModel>) {
         val storyListAdapter = StoryListAdapter(data, viewModel.getStoriesFromMyFavourite(), {
             viewModel.saveStoryOnMyFavourite(it)
-            Toast.makeText(requireContext(), "Checked id: $it", Toast.LENGTH_LONG).show()
         }, {
             viewModel.deleteStoryFromMyFavourite(it)
-            Toast.makeText(requireContext(), "Unchecked id: $it", Toast.LENGTH_LONG).show()
         }) {
             if (it.url.length > 4) {
                 val urlIntent = Intent(

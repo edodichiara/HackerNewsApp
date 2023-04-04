@@ -36,4 +36,12 @@ class MyPreferencesFragmentViewModel @Inject constructor(private val myPreferenc
             myPreferencesRepository.getListOfFavourite()
         }!!
     }
+
+    fun saveStoryOnMyFavourite(id: Int){
+        myPreferencesRepository.savePreference(id)
+    }
+
+    fun deleteStoryFromMyFavourite(id: Int){
+        myPreferencesRepository.deletePreference(id)
+    }
 }
