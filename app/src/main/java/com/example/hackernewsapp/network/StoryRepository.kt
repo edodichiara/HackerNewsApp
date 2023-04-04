@@ -1,10 +1,11 @@
 package com.example.hackernewsapp.network
 
+import com.example.hackernewsapp.MyPreferences
 import com.example.hackernewsapp.model.IdModel
 import com.example.hackernewsapp.model.StoryModel
 import javax.inject.Inject
 
-class StoryRepository @Inject constructor(private val api: NetworkObject) {
+class StoryRepository @Inject constructor(private val api: NetworkObject, private val myPreferences: MyPreferences) {
     suspend fun getNewStoriesList(): List<StoryModel> {
         val list: MutableList<StoryModel>
         val listOfIds = mutableListOf<IdModel>()
@@ -33,5 +34,33 @@ class StoryRepository @Inject constructor(private val api: NetworkObject) {
             api.service.getItemFromId(id).body()?.toStoryDomain() ?: emptyList<StoryModel>()
         } as MutableList<StoryModel>
         return list
+    }
+
+    fun savePreference(id: Int){
+        val list: MutableList<Int> = (if (myPreferences.getFavouriteList().isNullOrEmpty()){
+            emptyList()
+        } else {
+            myPreferences.getFavouriteList()
+        })?.toMutableList() ?: mutableListOf()
+        list.add(id)
+        myPreferences.saveFavouriteList(list.distinct())
+    }
+
+    fun deletePreference(id: Int){
+        val list: MutableList<Int> = (if (myPreferences.getFavouriteList().isNullOrEmpty()){
+            emptyList()
+        } else {
+            myPreferences.getFavouriteList()
+        })?.toMutableList() ?: mutableListOf()
+        list.remove(id)
+        myPreferences.saveFavouriteList(list)
+    }
+
+    fun getListOfFavourite(): List<Int>? {
+        return if(myPreferences.getFavouriteList().isNullOrEmpty()){
+            emptyList<Int>()
+        } else {
+            myPreferences.getFavouriteList()
+        }
     }
 }

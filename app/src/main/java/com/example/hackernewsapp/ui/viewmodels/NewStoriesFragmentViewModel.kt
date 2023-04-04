@@ -43,4 +43,21 @@ class NewStoriesFragmentViewModel @Inject constructor(private val storyRepositor
             }
         }
     }
+
+    fun saveStoryOnMyFavourite(id: Int){
+        storyRepository.savePreference(id)
+    }
+
+    fun deleteStoryFromMyFavourite(id: Int){
+        storyRepository.deletePreference(id)
+        Log.d("delete story", "deleteStoryFromMyFavourite: $id")
+    }
+
+    fun getStoriesFromMyFavourite(): List<Int> {
+        return if (storyRepository.getListOfFavourite().isNullOrEmpty()){
+            emptyList()
+        } else {
+            storyRepository.getListOfFavourite()
+        }!!
+    }
 }

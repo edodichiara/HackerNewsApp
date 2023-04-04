@@ -9,8 +9,14 @@ import com.example.hackernewsapp.model.StoryModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class StoryListAdapter(private val listOfStories: List<StoryModel>, private val onToggleButtonClick: (Int) -> Unit, private val onShowWebsiteCLick: (StoryModel) -> Unit) : RecyclerView.Adapter<StoryListAdapter.ItemViewHolder>() {
-    class ItemViewHolder(var binding: StoryItemBinding): RecyclerView.ViewHolder(binding.root)
+class StoryListAdapter(
+    private val listOfStories: List<StoryModel>,
+    private val listOfFavouriteId: List<Int>,
+    private val onCheckedToggleButtonClick: (Int) -> Unit,
+    private val onUncheckedToggleButtonClick: (Int) -> Unit,
+    private val onShowWebsiteCLick: (StoryModel) -> Unit
+) : RecyclerView.Adapter<StoryListAdapter.ItemViewHolder>() {
+    class ItemViewHolder(var binding: StoryItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val view = StoryItemBinding.inflate(
@@ -25,18 +31,36 @@ class StoryListAdapter(private val listOfStories: List<StoryModel>, private val 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        with(holder){
-            with(listOfStories[position]){
+        with(holder) {
+            with(listOfStories[position]) {
                 holder.binding.apply {
-                    title.text = itemView.context.getString(R.string.title, listOfStories[position].title)
-                    author.text = itemView.context.getString(R.string.author, listOfStories[position].author)
-                    date.text = itemView.context.getString(R.string.date, simpleDateFormat.format(listOfStories[position].time))
-                    numbersOfLike.text = itemView.context.getString(R.string.numbersOfLike, listOfStories[position].score)
-                    numbersOfComment.text = itemView.context.getString(R.string.numbers_of_comment, listOfStories[position].totalCommentsCount)
+                    title.text =
+                        itemView.context.getString(R.string.title, listOfStories[position].title)
+                    author.text =
+                        itemView.context.getString(R.string.author, listOfStories[position].author)
+                    date.text = itemView.context.getString(
+                        R.string.date,
+                        simpleDateFormat.format(listOfStories[position].time)
+                    )
+                    numbersOfLike.text = itemView.context.getString(
+                        R.string.numbersOfLike,
+                        listOfStories[position].score
+                    )
+                    numbersOfComment.text = itemView.context.getString(
+                        R.string.numbers_of_comment,
+                        listOfStories[position].totalCommentsCount
+                    )
                 }
                 binding.showNews.setOnClickListener {
                     onShowWebsiteCLick(this)
                 }
+                binding.toggleButton.setOnCheckedChangeListener { _, isChecked ->
+                    when (isChecked) {
+                        true -> onCheckedToggleButtonClick(listOfStories[position].id)
+                        false -> onUncheckedToggleButtonClick(listOfStories[position].id)
+                    }
+                }
+                binding.toggleButton.isChecked = listOfFavouriteId.contains(listOfStories[position].id)
             }
         }
     }

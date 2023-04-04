@@ -149,6 +149,7 @@
                 android:textColor="@color/my_blue_grey"/>
 
             <ToggleButton
+                android:id="@+id/toggle_button"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:background="@drawable/toggle_button_selector"
