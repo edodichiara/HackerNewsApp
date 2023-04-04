@@ -9,7 +9,7 @@ import com.example.hackernewsapp.model.StoryModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class StoryListAdapter(private val listOfStories: List<StoryModel>, private val onItemCLick: (StoryModel) -> Unit) : RecyclerView.Adapter<StoryListAdapter.ItemViewHolder>() {
+class StoryListAdapter(private val listOfStories: List<StoryModel>, private val onToggleButtonClick: (Int) -> Unit, private val onShowWebsiteCLick: (StoryModel) -> Unit) : RecyclerView.Adapter<StoryListAdapter.ItemViewHolder>() {
     class ItemViewHolder(var binding: StoryItemBinding): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -35,7 +35,7 @@ class StoryListAdapter(private val listOfStories: List<StoryModel>, private val 
                     numbersOfComment.text = itemView.context.getString(R.string.numbers_of_comment, listOfStories[position].totalCommentsCount)
                 }
                 binding.showNews.setOnClickListener {
-                    onItemCLick(this)
+                    onShowWebsiteCLick(this)
                 }
             }
         }

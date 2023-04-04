@@ -129,7 +129,7 @@ class NewStoriesFragment : Fragment() {
     }
 
     private fun setupUi(data: List<StoryModel>) {
-        val storyListAdapter = StoryListAdapter(data) {
+        val storyListAdapter = StoryListAdapter(data, {}) {
             if (it.url.length > 4) {
                 val urlIntent = Intent(
                     Intent.ACTION_VIEW,
