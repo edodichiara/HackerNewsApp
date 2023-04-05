@@ -63,7 +63,7 @@ class NewStoriesFragment : Fragment() {
                                         it1,
                                         getString(R.string.connection_error),
                                         Snackbar.LENGTH_INDEFINITE
-                                    ).setAction("Retry") {
+                                    ).setAction(getString(R.string.retry)) {
                                         viewModel.retrieveNewStories()
                                     }.show()
                                 }
@@ -89,7 +89,7 @@ class NewStoriesFragment : Fragment() {
                                         it1,
                                         getString(R.string.connection_error),
                                         Snackbar.LENGTH_INDEFINITE
-                                    ).setAction("Retry") {
+                                    ).setAction(getString(R.string.retry)) {
                                         viewModel.retrieveNewStories()
                                     }.show()
                                 }
@@ -115,7 +115,7 @@ class NewStoriesFragment : Fragment() {
                                         it1,
                                         getString(R.string.connection_error),
                                         Snackbar.LENGTH_INDEFINITE
-                                    ).setAction("Retry") {
+                                    ).setAction(getString(R.string.retry)) {
                                         viewModel.retrieveNewStories()
                                     }.show()
                                 }

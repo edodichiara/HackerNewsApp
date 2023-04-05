@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.hackernewsapp.R
 import com.example.hackernewsapp.databinding.FragmentMyPreferencesBinding
 import com.example.hackernewsapp.model.StoryModel
 import com.example.hackernewsapp.ui.adapter.StoryListAdapter
@@ -53,9 +54,9 @@ class MyPreferencesFragment : Fragment() {
                 is StoryListResult.Error -> {
                     Snackbar.make(
                         binding.fragmentMyPref,
-                        "Connection Error",
+                        getString(R.string.connection_error),
                         Snackbar.LENGTH_INDEFINITE
-                    ).setAction("Retry") {
+                    ).setAction(getString(R.string.retry)) {
                         viewModel.retrieveNewStories()
                     }.show()
                     if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
