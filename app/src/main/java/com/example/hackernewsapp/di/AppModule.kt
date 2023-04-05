@@ -12,6 +12,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * @author Edoardo Di Chiara
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
@@ -21,20 +24,26 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideStoryRepository(networkObject: NetworkObject, preferences: MyPreferences): StoryRepository {
+    fun provideStoryRepository(
+        networkObject: NetworkObject,
+        preferences: MyPreferences
+    ): StoryRepository {
         return StoryRepository(networkObject, preferences)
     }
 
     @Singleton
     @Provides
-    fun providePreferencesRepository(networkObject: NetworkObject, preferences: MyPreferences): MyPreferencesRepository {
+    fun providePreferencesRepository(
+        networkObject: NetworkObject,
+        preferences: MyPreferences
+    ): MyPreferencesRepository {
         return MyPreferencesRepository(preferences, networkObject)
     }
 
 
     @Singleton
     @Provides
-    fun provideMyPreference(@ApplicationContext context: Context): MyPreferences{
+    fun provideMyPreference(@ApplicationContext context: Context): MyPreferences {
         return MyPreferences(context)
     }
 }

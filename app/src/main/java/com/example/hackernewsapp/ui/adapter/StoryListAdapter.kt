@@ -9,6 +9,9 @@ import com.example.hackernewsapp.model.StoryModel
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * @author Edoardo Di Chiara
+ */
 class StoryListAdapter(
     private val listOfStories: List<StoryModel>,
     private val listOfFavouriteId: List<Int>,
@@ -60,7 +63,8 @@ class StoryListAdapter(
                         false -> onUncheckedToggleButtonClick(listOfStories[position].id)
                     }
                 }
-                binding.toggleButton.isChecked = listOfFavouriteId.contains(listOfStories[position].id)
+                binding.toggleButton.isChecked =
+                    listOfFavouriteId.contains(listOfStories[position].id)
             }
         }
     }

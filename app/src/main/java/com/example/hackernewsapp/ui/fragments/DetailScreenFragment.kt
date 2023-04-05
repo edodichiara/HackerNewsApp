@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import com.example.hackernewsapp.R
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * @author Edoardo Di Chiara
+ */
 @AndroidEntryPoint
 class DetailScreenFragment : Fragment() {
 

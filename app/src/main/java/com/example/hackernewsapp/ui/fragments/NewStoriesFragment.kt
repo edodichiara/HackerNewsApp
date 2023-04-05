@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.hackernewsapp.R
 import com.example.hackernewsapp.databinding.FragmentNewStoriesBinding
 import com.example.hackernewsapp.model.StoryModel
 import com.example.hackernewsapp.ui.adapter.StoryListAdapter
@@ -18,6 +19,9 @@ import com.example.hackernewsapp.utils.StoryListResult
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * @author Edoardo Di Chiara
+ */
 @AndroidEntryPoint
 class NewStoriesFragment : Fragment() {
     private var _binding: FragmentNewStoriesBinding? = null
@@ -54,13 +58,16 @@ class NewStoriesFragment : Fragment() {
                                     false
                             }
                             is StoryListResult.Error -> {
-                                Snackbar.make(
-                                    binding.fragmentNewStory,
-                                    "Connection Error",
-                                    Snackbar.LENGTH_INDEFINITE
-                                ).setAction("Retry") {
-                                    viewModel.retrieveNewStories()
-                                }.show()
+                                findSuitableViewForSnackbar(requireParentFragment())?.let { it1 ->
+                                    Snackbar.make(
+                                        it1,
+                                        getString(R.string.connection_error),
+                                        Snackbar.LENGTH_INDEFINITE
+                                    ).setAction("Retry") {
+                                        viewModel.retrieveNewStories()
+                                    }.show()
+                                }
+
                                 if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
                                     false
                             }
@@ -77,13 +84,15 @@ class NewStoriesFragment : Fragment() {
                                     false
                             }
                             is StoryListResult.Error -> {
-                                Snackbar.make(
-                                    binding.fragmentNewStory,
-                                    "Connection Error",
-                                    Snackbar.LENGTH_INDEFINITE
-                                ).setAction("Retry") {
-                                    viewModel.retrieveNewStories()
-                                }.show()
+                                findSuitableViewForSnackbar(requireParentFragment())?.let { it1 ->
+                                    Snackbar.make(
+                                        it1,
+                                        getString(R.string.connection_error),
+                                        Snackbar.LENGTH_INDEFINITE
+                                    ).setAction("Retry") {
+                                        viewModel.retrieveNewStories()
+                                    }.show()
+                                }
                                 if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
                                     false
                             }
@@ -100,13 +109,17 @@ class NewStoriesFragment : Fragment() {
                                     false
                             }
                             is StoryListResult.Error -> {
-                                Snackbar.make(
-                                    binding.fragmentNewStory,
-                                    "Connection Error",
-                                    Snackbar.LENGTH_INDEFINITE
-                                ).setAction("Retry") {
-                                    viewModel.retrieveNewStories()
-                                }.show()
+
+                                findSuitableViewForSnackbar(requireParentFragment())?.let { it1 ->
+                                    Snackbar.make(
+                                        it1,
+                                        getString(R.string.connection_error),
+                                        Snackbar.LENGTH_INDEFINITE
+                                    ).setAction("Retry") {
+                                        viewModel.retrieveNewStories()
+                                    }.show()
+                                }
+
                                 if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
                                     false
                             }
@@ -121,7 +134,7 @@ class NewStoriesFragment : Fragment() {
         var POSITION_ARGUMENT = "position_arg"
 
         @JvmStatic
-        fun newIstance(position: Int) = NewStoriesFragment().apply {
+        fun newInstance(position: Int) = NewStoriesFragment().apply {
             arguments = Bundle().apply {
                 putInt(POSITION_ARGUMENT, position)
             }
@@ -159,6 +172,11 @@ class NewStoriesFragment : Fragment() {
         binding.swipeToRefresh.setOnRefreshListener {
             viewModel.retrieveNewStories()
         }
+    }
+
+    private fun findSuitableViewForSnackbar(fragment: Fragment): View? {
+        val contentView = fragment.activity?.findViewById(android.R.id.content) as? ViewGroup
+        return contentView?.getChildAt(0)
     }
 
 }

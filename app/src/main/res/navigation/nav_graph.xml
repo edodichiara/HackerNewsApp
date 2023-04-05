@@ -25,14 +25,4 @@
         android:name="com.example.hackernewsapp.ui.fragments.NewStoriesFragment"
         android:label="fragment_new_stories"
         tools:layout="@layout/fragment_new_stories" />
-    <fragment
-        android:id="@+id/topStoriesFragment"
-        android:name="com.example.hackernewsapp.ui.fragments.TopStoriesFragment"
-        android:label="fragment_top_stories"
-        tools:layout="@layout/fragment_top_stories" />
-    <fragment
-        android:id="@+id/bestStoriesFragment"
-        android:name="com.example.hackernewsapp.ui.fragments.BestStoriesFragment"
-        android:label="fragment_best_stories"
-        tools:layout="@layout/fragment_best_stories" />
 </navigation>

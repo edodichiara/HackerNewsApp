@@ -11,4 +11,5 @@
     <string name="numbers_of_comment">%d</string>
     <string name="show_news">SHOW NEWS</string>
     <string name="my_favourites">My Favourites</string>
+    <string name="connection_error">Connection Error</string>
 </resources>

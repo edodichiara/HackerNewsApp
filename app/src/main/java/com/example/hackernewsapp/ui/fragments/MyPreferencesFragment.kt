@@ -18,6 +18,9 @@ import com.example.hackernewsapp.utils.StoryListResult
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * @author Edoardo Di Chiara
+ */
 @AndroidEntryPoint
 class MyPreferencesFragment : Fragment() {
     private var _binding: FragmentMyPreferencesBinding? = null

@@ -8,6 +8,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+/**
+ * @author Edoardo Di Chiara
+ */
 object NetworkObject {
 
     private fun provideRetrofit(

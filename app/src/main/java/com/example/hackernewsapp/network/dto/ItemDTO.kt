@@ -1,10 +1,12 @@
 package com.example.hackernewsapp.network.dto
 
-
 import com.example.hackernewsapp.model.StoryModel
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
+/**
+ * @author Edoardo Di Chiara
+ */
 data class ItemDTO(
     @SerializedName("by")
     val by: String,
@@ -30,8 +32,8 @@ data class ItemDTO(
     val text: String?,
     @SerializedName("poll")
     val poll: String?
-){
-    fun toStoryDomain(): StoryModel{
+) {
+    fun toStoryDomain(): StoryModel {
         return StoryModel(
             author = this.by,
             totalCommentsCount = this.descendants,

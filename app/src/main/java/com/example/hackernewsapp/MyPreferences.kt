@@ -7,6 +7,9 @@ import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
+/**
+ * @author Edoardo Di Chiara
+ */
 class MyPreferences @Inject constructor(@ApplicationContext context: Context) {
     private val LISTOFFAVOURITE = "listOfFavourite"
 
@@ -14,12 +17,12 @@ class MyPreferences @Inject constructor(@ApplicationContext context: Context) {
         context.getSharedPreferences(LISTOFFAVOURITE, Context.MODE_PRIVATE)
     private val gson = GsonBuilder().create()
 
-    fun saveFavouriteList(list: List<Int>){
+    fun saveFavouriteList(list: List<Int>) {
         val stringToSave = gson.toJson(list)
         preferenceListOfFavourite.edit().putString(LISTOFFAVOURITE, stringToSave).apply()
     }
 
-    fun getFavouriteList(): List<Int>?{
+    fun getFavouriteList(): List<Int>? {
         val json = preferenceListOfFavourite.getString(LISTOFFAVOURITE, null)
         val itemType = object : TypeToken<List<Int>>() {}.type
         val list = gson.fromJson<List<Int>>(json, itemType)

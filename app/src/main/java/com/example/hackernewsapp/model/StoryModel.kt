@@ -2,6 +2,9 @@ package com.example.hackernewsapp.model
 
 import java.util.Date
 
+/**
+ * @author Edoardo Di Chiara
+ */
 data class StoryModel(
     val author: String,
     val totalCommentsCount: Int,

@@ -11,8 +11,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * @author Edoardo Di Chiara
+ */
 @HiltViewModel
-class MyPreferencesFragmentViewModel @Inject constructor(private val myPreferencesRepository: MyPreferencesRepository): ViewModel(){
+class MyPreferencesFragmentViewModel @Inject constructor(private val myPreferencesRepository: MyPreferencesRepository) :
+    ViewModel() {
 
     private var _newStoryListResult = MutableLiveData<StoryListResult>()
     val newStoryListResult: LiveData<StoryListResult> get() = _newStoryListResult
@@ -30,18 +34,18 @@ class MyPreferencesFragmentViewModel @Inject constructor(private val myPreferenc
     }
 
     fun getStoriesFromMyFavourite(): List<Int> {
-        return if (myPreferencesRepository.getListOfFavourite().isNullOrEmpty()){
+        return if (myPreferencesRepository.getListOfFavourite().isNullOrEmpty()) {
             emptyList()
         } else {
             myPreferencesRepository.getListOfFavourite()
         }!!
     }
 
-    fun saveStoryOnMyFavourite(id: Int){
+    fun saveStoryOnMyFavourite(id: Int) {
         myPreferencesRepository.savePreference(id)
     }
 
-    fun deleteStoryFromMyFavourite(id: Int){
+    fun deleteStoryFromMyFavourite(id: Int) {
         myPreferencesRepository.deletePreference(id)
     }
 }

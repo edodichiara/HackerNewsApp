@@ -6,6 +6,9 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
+/**
+ * @author Edoardo Di Chiara
+ */
 interface HackerNewsService {
     @GET("newstories.json")
     suspend fun listNewStories(): Response<IdListDTO>
@@ -17,5 +20,5 @@ interface HackerNewsService {
     suspend fun listBestStories(): Response<IdListDTO>
 
     @GET("item/{id}.json")
-    suspend fun getItemFromId(@Path ("id") id: Int): Response<ItemDTO>
+    suspend fun getItemFromId(@Path("id") id: Int): Response<ItemDTO>
 }

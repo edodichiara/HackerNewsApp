@@ -12,6 +12,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * @author Edoardo Di Chiara
+ */
 @HiltViewModel
 class NewStoriesFragmentViewModel @Inject constructor(private val storyRepository: StoryRepository) :
     ViewModel() {
@@ -43,16 +46,16 @@ class NewStoriesFragmentViewModel @Inject constructor(private val storyRepositor
         }
     }
 
-    fun saveStoryOnMyFavourite(id: Int){
+    fun saveStoryOnMyFavourite(id: Int) {
         storyRepository.savePreference(id)
     }
 
-    fun deleteStoryFromMyFavourite(id: Int){
+    fun deleteStoryFromMyFavourite(id: Int) {
         storyRepository.deletePreference(id)
     }
 
     fun getStoriesFromMyFavourite(): List<Int> {
-        return if (storyRepository.getListOfFavourite().isNullOrEmpty()){
+        return if (storyRepository.getListOfFavourite().isNullOrEmpty()) {
             emptyList()
         } else {
             storyRepository.getListOfFavourite()
