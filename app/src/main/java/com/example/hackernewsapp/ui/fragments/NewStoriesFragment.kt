@@ -58,18 +58,7 @@ class NewStoriesFragment : Fragment() {
                                     false
                             }
                             is StoryListResult.Error -> {
-                                findSuitableViewForSnackbar(requireParentFragment())?.let { it1 ->
-                                    Snackbar.make(
-                                        it1,
-                                        getString(R.string.connection_error),
-                                        Snackbar.LENGTH_INDEFINITE
-                                    ).setAction(getString(R.string.retry)) {
-                                        viewModel.retrieveNewStories()
-                                    }.show()
-                                }
-
-                                if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
-                                    false
+                                errorHandling()
                             }
                         }
                     }
@@ -84,17 +73,7 @@ class NewStoriesFragment : Fragment() {
                                     false
                             }
                             is StoryListResult.Error -> {
-                                findSuitableViewForSnackbar(requireParentFragment())?.let { it1 ->
-                                    Snackbar.make(
-                                        it1,
-                                        getString(R.string.connection_error),
-                                        Snackbar.LENGTH_INDEFINITE
-                                    ).setAction(getString(R.string.retry)) {
-                                        viewModel.retrieveNewStories()
-                                    }.show()
-                                }
-                                if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
-                                    false
+                                errorHandling()
                             }
                         }
                     }
@@ -109,25 +88,28 @@ class NewStoriesFragment : Fragment() {
                                     false
                             }
                             is StoryListResult.Error -> {
-
-                                findSuitableViewForSnackbar(requireParentFragment())?.let { it1 ->
-                                    Snackbar.make(
-                                        it1,
-                                        getString(R.string.connection_error),
-                                        Snackbar.LENGTH_INDEFINITE
-                                    ).setAction(getString(R.string.retry)) {
-                                        viewModel.retrieveNewStories()
-                                    }.show()
-                                }
-
-                                if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
-                                    false
+                                errorHandling()
                             }
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun errorHandling() {
+        findSuitableViewForSnackbar(requireParentFragment())?.let { it1 ->
+            Snackbar.make(
+                it1,
+                getString(R.string.connection_error),
+                Snackbar.LENGTH_INDEFINITE
+            ).setAction(getString(R.string.retry)) {
+                viewModel.retrieveNewStories()
+            }.show()
+        }
+
+        if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
+            false
     }
 
     companion object {
@@ -148,11 +130,7 @@ class NewStoriesFragment : Fragment() {
             viewModel.deleteStoryFromMyFavourite(it)
         }) {
             if (it.url.length > 4) {
-                val urlIntent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(it.url)
-                )
-                startActivity(urlIntent)
+                callIntentToShowWebsite(it)
             } else {
                 Toast.makeText(requireContext(), "Invalid link", Toast.LENGTH_LONG).show()
             }
@@ -166,6 +144,14 @@ class NewStoriesFragment : Fragment() {
                 )
             adapter = storyListAdapter
         }
+    }
+
+    private fun callIntentToShowWebsite(it: StoryModel) {
+        val urlIntent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse(it.url)
+        )
+        startActivity(urlIntent)
     }
 
     private fun setPullToRefresh() {
