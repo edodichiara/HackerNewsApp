@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * @author Edoardo Di Chiara
  */
 @AndroidEntryPoint
-class DetailScreenFragment : Fragment() {
+class CommentScreenFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

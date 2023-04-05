@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home_screen" />
     <fragment
         android:id="@+id/detailScreenFragment"
-        android:name="com.example.hackernewsapp.ui.fragments.DetailScreenFragment"
+        android:name="com.example.hackernewsapp.ui.fragments.CommentScreenFragment"
         android:label="fragment_detail_screen"
         tools:layout="@layout/fragment_detail_screen" />
     <fragment

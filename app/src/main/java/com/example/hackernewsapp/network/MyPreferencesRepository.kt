@@ -21,10 +21,9 @@ class MyPreferencesRepository @Inject constructor(
     }
 
     suspend fun getStoryList(): List<StoryModel> {
-        val listOfStoryModel: MutableList<StoryModel> = getListOfFavourite()?.map { id ->
+        val listOfStoryModel: List<StoryModel> = getListOfFavourite()?.mapNotNull { id ->
             networkObject.service.getItemFromId(id).body()?.toStoryDomain()
-                ?: emptyList<StoryModel>()
-        } as MutableList<StoryModel>
+        } ?: emptyList()
         return listOfStoryModel
     }
 
