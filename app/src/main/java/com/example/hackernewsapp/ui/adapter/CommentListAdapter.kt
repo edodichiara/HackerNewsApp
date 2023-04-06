@@ -39,7 +39,6 @@ class CommentListAdapter(private val listOfComments: List<CommentModel>) :
                     binding.author.text = this.by
                 }
                 holder.binding.dateTime.text = simpleDateFormat.format(this.time)
-                holder.binding.numbersOfLike.text = this.score.toString()
             }
         }
     }

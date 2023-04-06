@@ -18,76 +18,44 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp"
-            android:background="@color/my_light_blue_5">
+            android:background="@color/my_light_blue_5"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/comment_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/rubik"
+                android:textColor="@color/my_blue_grey"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:fontFamily="@font/rubik"
-                android:textSize="16sp"
-                android:textColor="@color/my_blue_grey"
                 tools:text="Tanto lavoro e niente divertimento rendono Jack un ragazzo noioso Tanto lavoro e niente divertimento rendono Jack un ragazzo noioso" />
 
             <TextView
                 android:id="@+id/author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_textview1"
+                android:fontFamily="@font/rubik"
+                android:textColor="@color/my_light_grey"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/comment_text"
-                android:layout_marginTop="@dimen/margin_top_textview1"
-                tools:text="by Jack Torrance"
-                android:fontFamily="@font/rubik"
-                android:textSize="14sp"
-                android:textColor="@color/my_light_grey" />
+                tools:text="by Jack Torrance" />
 
             <TextView
                 android:id="@+id/date_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_textview1"
+                android:fontFamily="@font/rubik"
+                android:textColor="@color/my_blue"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/author"
-                android:layout_marginTop="@dimen/margin_top_textview1"
-                tools:text="15:29 06/04/2023"
-                android:fontFamily="@font/rubik"
-                android:textSize="14sp"
-                android:textColor="@color/my_blue" />
-
-            <include
-                android:id="@+id/dot_icon"
-                layout="@layout/dot_icon"
-                app:layout_constraintStart_toEndOf="@id/date_time"
-                app:layout_constraintTop_toTopOf="@id/date_time"
-                app:layout_constraintBottom_toBottomOf="@id/date_time"
-                android:layout_height="8dp"
-                android:layout_width="wrap_content"/>
-
-            <ImageView
-                android:id="@+id/like"
-                android:layout_width="18dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/dot_icon"
-                app:layout_constraintTop_toTopOf="@id/date_time"
-                app:layout_constraintBottom_toBottomOf="@id/date_time"
-                android:src="@drawable/baseline_thumb_up_24" />
-
-            <TextView
-                android:id="@+id/numbers_of_like"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/like"
-                app:layout_constraintTop_toTopOf="@id/date_time"
-                app:layout_constraintBottom_toBottomOf="@id/date_time"
-                android:layout_marginStart="4dp"
-                android:text="123"
-                android:textSize="16sp"
-                android:fontFamily="@font/rubik_light"
-                android:textColor="@color/my_blue_grey"/>
-
+                tools:text="15:29 06/04/2023" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
