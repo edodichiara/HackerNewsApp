@@ -8,13 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hackernewsapp.R
 import com.example.hackernewsapp.databinding.FragmentMyPreferencesBinding
 import com.example.hackernewsapp.model.StoryModel
 import com.example.hackernewsapp.ui.adapter.StoryListAdapter
 import com.example.hackernewsapp.ui.viewmodels.MyPreferencesFragmentViewModel
+import com.example.hackernewsapp.ui.viewmodels.SharedViewModel
 import com.example.hackernewsapp.utils.StoryListResult
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +30,7 @@ class MyPreferencesFragment : Fragment() {
     private var _binding: FragmentMyPreferencesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MyPreferencesFragmentViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,7 +77,10 @@ class MyPreferencesFragment : Fragment() {
             },
             {
                 viewModel.deleteStoryFromMyFavourite(it)
-            }, {}) {
+            }, {
+                sharedViewModel.selectedId.value = it
+                findNavController().navigate(R.id.action_global_commentScreenFragment)
+            }) {
             if (it.url.length > 4) {
                 val urlIntent = Intent(
                     Intent.ACTION_VIEW,
@@ -81,7 +88,7 @@ class MyPreferencesFragment : Fragment() {
                 )
                 startActivity(urlIntent)
             } else {
-                Toast.makeText(requireContext(), "Invalid link", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), R.string.invalid_link, Toast.LENGTH_LONG).show()
             }
         }
         binding.prefsRecyclerView.apply {

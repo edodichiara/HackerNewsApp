@@ -3,7 +3,6 @@ package com.example.hackernewsapp.ui.fragments
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -137,14 +136,13 @@ class NewStoriesFragment : Fragment() {
             viewModel.deleteStoryFromMyFavourite(it)
         },
             {
-                Log.d("Doppio click?", "setupUi: $it")
                 sharedViewModel.selectedId.value = it
                 findNavController().navigate(R.id.action_global_commentScreenFragment)
             }) {
             if (it.url.length > 4) {
                 callIntentToShowWebsite(it)
             } else {
-                Toast.makeText(requireContext(), "Invalid link", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), R.string.invalid_link, Toast.LENGTH_LONG).show()
             }
         }
         binding.recyclerView.apply {

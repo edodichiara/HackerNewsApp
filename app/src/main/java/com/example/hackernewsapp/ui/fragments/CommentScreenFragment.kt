@@ -70,7 +70,6 @@ class CommentScreenFragment : Fragment() {
                     ).setAction(getString(R.string.retry)) {
                         sharedViewModel.selectedId.value?.let { it1 -> viewModel.retrieveRepo(it1) }
                     }.show()
-                    Log.d("observe repo", "observeRepo: ${it.e.message}")
                 }
             }
         }
