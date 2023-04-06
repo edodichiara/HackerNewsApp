@@ -3,6 +3,7 @@ package com.example.hackernewsapp.ui
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.hackernewsapp.R
@@ -30,5 +31,6 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomNavigationMenu.visibility = View.VISIBLE
             }
         }
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 }
