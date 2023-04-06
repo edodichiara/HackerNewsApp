@@ -1,5 +1,6 @@
 package com.example.hackernewsapp.network.dto
 
+import com.example.hackernewsapp.model.CommentModel
 import com.example.hackernewsapp.model.StoryModel
 import com.google.gson.annotations.SerializedName
 import java.util.*
@@ -38,12 +39,26 @@ data class ItemDTO(
             author = this.by,
             totalCommentsCount = this.descendants,
             id = this.id,
-            idComments = this.kids ?: emptyList(),
+            idComments = this.kids.orEmpty(),
             score = this.score,
             time = Date(this.time * 1000),
             title = this.title,
             type = this.type,
             url = this.url ?: ""
+
+        )
+    }
+
+    fun toCommentDomain(): CommentModel {
+        return CommentModel(
+            id = this.id,
+            by = this.by,
+            subComment = this.kids.orEmpty(),
+            score = this.score,
+            parent = this.parent ?: 0,
+            text = this.text ?: String(),
+            time = Date(this.time * 1000),
+            type = this.type
 
         )
     }

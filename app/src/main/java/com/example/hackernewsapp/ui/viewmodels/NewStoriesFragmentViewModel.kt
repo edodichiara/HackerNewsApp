@@ -33,15 +33,30 @@ class NewStoriesFragmentViewModel @Inject constructor(private val storyRepositor
             try {
                 _newStoryListResult.value =
                     StoryListResult.Success(storyRepository.getNewStoriesList())
-                _bestStoryListResult.value =
-                    StoryListResult.Success(storyRepository.getBestStoriesList())
-                _topStoryListResult.value =
-                    StoryListResult.Success(storyRepository.getTopStoriesList())
-                Log.d("Retrieve stories", "retrieveStories: ${storyRepository.getNewStoriesList()}")
             } catch (e: java.lang.Exception) {
                 _newStoryListResult.value = StoryListResult.Error(e)
-                _topStoryListResult.value = StoryListResult.Error(e)
+            }
+        }
+    }
+
+    fun retrieveBestStories() {
+        viewModelScope.launch(Dispatchers.Main) {
+            try {
+                _bestStoryListResult.value =
+                    StoryListResult.Success(storyRepository.getBestStoriesList())
+            } catch (e: java.lang.Exception) {
                 _bestStoryListResult.value = StoryListResult.Error(e)
+            }
+        }
+    }
+
+    fun retrieveTopStories() {
+        viewModelScope.launch(Dispatchers.Main) {
+            try {
+                _topStoryListResult.value =
+                    StoryListResult.Success(storyRepository.getTopStoriesList())
+            } catch (e: java.lang.Exception) {
+                _topStoryListResult.value = StoryListResult.Error(e)
             }
         }
     }

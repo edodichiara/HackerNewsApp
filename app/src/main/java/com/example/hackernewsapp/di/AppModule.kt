@@ -2,6 +2,7 @@ package com.example.hackernewsapp.di
 
 import android.content.Context
 import com.example.hackernewsapp.MyPreferences
+import com.example.hackernewsapp.network.CommentRepository
 import com.example.hackernewsapp.network.MyPreferencesRepository
 import com.example.hackernewsapp.network.NetworkObject
 import com.example.hackernewsapp.network.StoryRepository
@@ -46,4 +47,9 @@ object AppModule {
     fun provideMyPreference(@ApplicationContext context: Context): MyPreferences {
         return MyPreferences(context)
     }
+
+    @Singleton
+    @Provides
+    fun provideCommentRepository(networkObject: NetworkObject): CommentRepository =
+        CommentRepository(networkObject)
 }

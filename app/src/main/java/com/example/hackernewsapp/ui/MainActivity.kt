@@ -1,6 +1,7 @@
 package com.example.hackernewsapp.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -21,5 +22,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         val navController = this.findNavController(R.id.fragmentContainerView)
         binding.bottomNavigationMenu.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener{_, destination, _ ->
+            if (destination.id == R.id.commentScreenFragment){
+                binding.bottomNavigationMenu.visibility = View.GONE
+            } else {
+                binding.bottomNavigationMenu.visibility = View.VISIBLE
+            }
+        }
     }
 }

@@ -9,12 +9,14 @@
         android:id="@+id/homeScreenFragment"
         android:name="com.example.hackernewsapp.ui.fragments.HomeScreenFragment"
         android:label="fragment_home_screen"
-        tools:layout="@layout/fragment_home_screen" />
+        tools:layout="@layout/fragment_home_screen" >
+    </fragment>
     <fragment
-        android:id="@+id/detailScreenFragment"
+        android:id="@+id/commentScreenFragment"
         android:name="com.example.hackernewsapp.ui.fragments.CommentScreenFragment"
         android:label="fragment_detail_screen"
-        tools:layout="@layout/fragment_detail_screen" />
+        tools:layout="@layout/fragment_comment_screen" >
+    </fragment>
     <fragment
         android:id="@+id/myPreferencesFragment"
         android:name="com.example.hackernewsapp.ui.fragments.MyPreferencesFragment"
@@ -24,5 +26,6 @@
         android:id="@+id/newStoriesFragment"
         android:name="com.example.hackernewsapp.ui.fragments.NewStoriesFragment"
         android:label="fragment_new_stories"
-        tools:layout="@layout/fragment_new_stories" />
+        tools:layout="@layout/fragment_new_stories" >
+    </fragment><action android:id="@+id/action_global_commentScreenFragment" app:destination="@id/commentScreenFragment"/>
 </navigation>

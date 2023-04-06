@@ -13,4 +13,5 @@
     <string name="my_favourites">My Favourites</string>
     <string name="connection_error">Connection Error</string>
     <string name="retry">Retry</string>
+    <string name="show_comments">SHOW COMMENTS</string>
 </resources>
