@@ -77,9 +77,13 @@ class MyPreferencesFragment : Fragment() {
             },
             {
                 viewModel.deleteStoryFromMyFavourite(it)
-            }, {
-                sharedViewModel.selectedId.value = it
-                findNavController().navigate(R.id.action_global_commentScreenFragment)
+            }, {id, isCommentEqualToZero ->
+                sharedViewModel.selectedId.value = id
+                if(isCommentEqualToZero){
+                    Toast.makeText(requireContext(), R.string.no_comments, Toast.LENGTH_SHORT).show()
+                } else {
+                    findNavController().navigate(R.id.action_global_commentScreenFragment)
+                }
             }) {
             if (it.url.length > 4) {
                 val urlIntent = Intent(

@@ -15,4 +15,5 @@
     <string name="retry">Retry</string>
     <string name="show_comments">SHOW COMMENTS</string>
     <string name="invalid_link">Invalid link</string>
+    <string name="no_comments">There are no comments!</string>
 </resources>

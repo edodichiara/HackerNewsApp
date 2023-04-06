@@ -17,7 +17,7 @@ class StoryListAdapter(
     private val listOfFavouriteId: List<Int>,
     private val onCheckedToggleButtonClick: (Int) -> Unit,
     private val onUncheckedToggleButtonClick: (Int) -> Unit,
-    private val onShowCommentsClick: (Int) -> Unit,
+    private val onShowCommentsClick: (Int, Boolean) -> Unit,
     private val onShowWebsiteCLick: (StoryModel) -> Unit
 ) : RecyclerView.Adapter<StoryListAdapter.ItemViewHolder>() {
     class ItemViewHolder(var binding: StoryItemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -65,7 +65,7 @@ class StoryListAdapter(
                     onShowWebsiteCLick(this)
                 }
                 binding.showComments.setOnClickListener {
-                    onShowCommentsClick(this.id)
+                    onShowCommentsClick(this.id, this.totalCommentsCount == 0)
                 }
                 binding.toggleButton.setOnCheckedChangeListener { _, isChecked ->
                     when (isChecked) {
