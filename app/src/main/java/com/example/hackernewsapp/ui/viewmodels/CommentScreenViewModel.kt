@@ -21,7 +21,6 @@ class CommentScreenViewModel @Inject constructor(private val commentRepository: 
         viewModelScope.launch(Dispatchers.Main) {
             try {
                 _commentListResult.value = CommentListResult.Success(commentRepository.getListOfCommentFromId(id))
-                Log.d("commentscreenviewmodel", "retrieveRepo: ${commentRepository.getListOfCommentFromId(id)}")
             } catch (e: java.lang.Exception){
                 _commentListResult.value = CommentListResult.Error(e)
             }
