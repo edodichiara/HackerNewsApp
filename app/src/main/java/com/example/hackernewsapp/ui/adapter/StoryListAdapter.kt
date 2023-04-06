@@ -41,7 +41,13 @@ class StoryListAdapter(
                     title.text =
                         itemView.context.getString(R.string.title, listOfStories[position].title)
                     author.text =
-                        itemView.context.getString(R.string.author, listOfStories[position].author)
+                        itemView.context.getString(
+                            R.string.author,
+                            listOfStories[position].type.lowercase().replaceFirstChar { char ->
+                                char.titlecase(Locale.getDefault())
+                            },
+                            listOfStories[position].author
+                        )
                     date.text = itemView.context.getString(
                         R.string.date,
                         simpleDateFormat.format(listOfStories[position].time)
