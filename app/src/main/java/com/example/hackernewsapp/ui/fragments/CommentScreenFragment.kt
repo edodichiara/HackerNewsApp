@@ -9,12 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.hackernewsapp.R
 import com.example.hackernewsapp.databinding.FragmentCommentScreenBinding
 import com.example.hackernewsapp.model.CommentModel
 import com.example.hackernewsapp.ui.adapter.CommentListAdapter
 import com.example.hackernewsapp.ui.viewmodels.CommentScreenViewModel
 import com.example.hackernewsapp.ui.viewmodels.SharedViewModel
 import com.example.hackernewsapp.utils.CommentListResult
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -37,6 +39,7 @@ class CommentScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setPullToRefresh(sharedViewModel.selectedId.value)
     }
 
     private fun observeDataFromNewStoriesFragment() {
@@ -48,12 +51,27 @@ class CommentScreenFragment : Fragment() {
     }
 
     private fun observeRepo() {
+        binding.loadingProgressbar.show()
         viewModel.commentListResult.observe(viewLifecycleOwner) {
+            binding.loadingProgressbar.hide()
             when (it) {
                 is CommentListResult.Success -> {
                     setupUI(it.comments)
+                    if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
+                        false
                 }
-                is CommentListResult.Error -> Log.d("observe repo", "observeRepo: ${it.e.message}")
+                is CommentListResult.Error -> {
+                    if (binding.swipeToRefresh.isRefreshing) binding.swipeToRefresh.isRefreshing =
+                        false
+                    Snackbar.make(
+                        binding.commentScreenFragment,
+                        getString(R.string.connection_error),
+                        Snackbar.LENGTH_INDEFINITE
+                    ).setAction(getString(R.string.retry)) {
+                        sharedViewModel.selectedId.value?.let { it1 -> viewModel.retrieveRepo(it1) }
+                    }.show()
+                    Log.d("observe repo", "observeRepo: ${it.e.message}")
+                }
             }
         }
     }
@@ -68,6 +86,14 @@ class CommentScreenFragment : Fragment() {
                     false
                 )
             adapter = commentListAdapter
+        }
+    }
+
+    private fun setPullToRefresh(id: Int?) {
+        binding.swipeToRefresh.setOnRefreshListener {
+            if (id != null) {
+                viewModel.retrieveRepo(id)
+            }
         }
     }
 }
