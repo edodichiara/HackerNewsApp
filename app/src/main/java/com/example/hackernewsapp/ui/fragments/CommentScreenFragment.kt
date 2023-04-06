@@ -52,7 +52,6 @@ class CommentScreenFragment : Fragment() {
             when (it) {
                 is CommentListResult.Success -> {
                     setupUI(it.comments)
-                    Log.d("observe repo", "observeRepo: ${it.comments.size}")
                 }
                 is CommentListResult.Error -> Log.d("observe repo", "observeRepo: ${it.e.message}")
             }

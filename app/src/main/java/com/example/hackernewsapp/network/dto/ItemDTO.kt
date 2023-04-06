@@ -32,7 +32,9 @@ data class ItemDTO(
     @SerializedName("text")
     val text: String?,
     @SerializedName("poll")
-    val poll: String?
+    val poll: String?,
+    @SerializedName("dead")
+    val dead: Boolean?
 ) {
     fun toStoryDomain(): StoryModel {
         return StoryModel(
@@ -58,8 +60,8 @@ data class ItemDTO(
             parent = this.parent ?: 0,
             text = this.text ?: String(),
             time = Date(this.time * 1000),
-            type = this.type
-
+            type = this.type,
+            dead = this.dead
         )
     }
 }

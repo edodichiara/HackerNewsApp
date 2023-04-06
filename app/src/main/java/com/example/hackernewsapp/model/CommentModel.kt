@@ -10,5 +10,6 @@ data class CommentModel(
     val parent: Int,
     val text: String,
     val time: Date,
-    val type: String
+    val type: String,
+    val dead: Boolean?
 )

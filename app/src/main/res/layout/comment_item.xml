@@ -8,7 +8,7 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/cardview_margin_horizontal"
+        android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="@dimen/cardview_margin_vertical"
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,7 +18,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:background="@color/my_light_blue_5">
 
             <TextView
                 android:id="@+id/comment_text"
@@ -43,6 +44,51 @@
                 android:fontFamily="@font/rubik"
                 android:textSize="14sp"
                 android:textColor="@color/my_light_grey" />
+
+            <TextView
+                android:id="@+id/date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/author"
+                android:layout_marginTop="@dimen/margin_top_textview1"
+                tools:text="15:29 06/04/2023"
+                android:fontFamily="@font/rubik"
+                android:textSize="14sp"
+                android:textColor="@color/my_blue" />
+
+            <include
+                android:id="@+id/dot_icon"
+                layout="@layout/dot_icon"
+                app:layout_constraintStart_toEndOf="@id/date_time"
+                app:layout_constraintTop_toTopOf="@id/date_time"
+                app:layout_constraintBottom_toBottomOf="@id/date_time"
+                android:layout_height="8dp"
+                android:layout_width="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/like"
+                android:layout_width="18dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/dot_icon"
+                app:layout_constraintTop_toTopOf="@id/date_time"
+                app:layout_constraintBottom_toBottomOf="@id/date_time"
+                android:src="@drawable/baseline_thumb_up_24" />
+
+            <TextView
+                android:id="@+id/numbers_of_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/like"
+                app:layout_constraintTop_toTopOf="@id/date_time"
+                app:layout_constraintBottom_toBottomOf="@id/date_time"
+                android:layout_marginStart="4dp"
+                android:text="123"
+                android:textSize="16sp"
+                android:fontFamily="@font/rubik_light"
+                android:textColor="@color/my_blue_grey"/>
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
