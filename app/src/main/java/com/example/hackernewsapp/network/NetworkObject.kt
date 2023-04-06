@@ -52,8 +52,4 @@ object NetworkObject {
     )
 
     val service = retrofit.create(HackerNewsService::class.java)
-//
-//    suspend fun getHourlyList(): List<HourlyModel>{
-//        return service.hourlyForecastList().body()?.toDomain() ?: emptyList()
-//    }
 }

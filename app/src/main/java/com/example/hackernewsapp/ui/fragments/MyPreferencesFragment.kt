@@ -73,7 +73,7 @@ class MyPreferencesFragment : Fragment() {
             },
             {
                 viewModel.deleteStoryFromMyFavourite(it)
-            }) {
+            }, {}) {
             if (it.url.length > 4) {
                 val urlIntent = Intent(
                     Intent.ACTION_VIEW,

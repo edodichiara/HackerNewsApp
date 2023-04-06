@@ -3,18 +3,22 @@ package com.example.hackernewsapp.ui.fragments
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hackernewsapp.R
 import com.example.hackernewsapp.databinding.FragmentNewStoriesBinding
 import com.example.hackernewsapp.model.StoryModel
 import com.example.hackernewsapp.ui.adapter.StoryListAdapter
 import com.example.hackernewsapp.ui.viewmodels.NewStoriesFragmentViewModel
+import com.example.hackernewsapp.ui.viewmodels.SharedViewModel
 import com.example.hackernewsapp.utils.StoryListResult
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,13 +31,13 @@ class NewStoriesFragment : Fragment() {
     private var _binding: FragmentNewStoriesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: NewStoriesFragmentViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNewStoriesBinding.inflate(layoutInflater)
-        viewModel.retrieveNewStories()
         return binding.root
     }
 
@@ -41,7 +45,7 @@ class NewStoriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val pos = arguments?.getInt(POSITION_ARGUMENT)
         observeRepo(pos)
-        setPullToRefresh()
+        setPullToRefresh(pos)
     }
 
     private fun observeRepo(pos: Int?) {
@@ -49,6 +53,7 @@ class NewStoriesFragment : Fragment() {
         pos?.let { position ->
             when (position) {
                 0 -> {
+                    viewModel.retrieveNewStories()
                     viewModel.newStoryListResult.observe(viewLifecycleOwner) {
                         binding.loadingProgressbar.hide()
                         when (it) {
@@ -64,6 +69,7 @@ class NewStoriesFragment : Fragment() {
                     }
                 }
                 1 -> {
+                    viewModel.retrieveTopStories()
                     viewModel.topStoryListResult.observe(viewLifecycleOwner) {
                         binding.loadingProgressbar.hide()
                         when (it) {
@@ -79,6 +85,7 @@ class NewStoriesFragment : Fragment() {
                     }
                 }
                 2 -> {
+                    viewModel.retrieveBestStories()
                     viewModel.bestStoryListResult.observe(viewLifecycleOwner) {
                         binding.loadingProgressbar.hide()
                         when (it) {
@@ -128,7 +135,12 @@ class NewStoriesFragment : Fragment() {
             viewModel.saveStoryOnMyFavourite(it)
         }, {
             viewModel.deleteStoryFromMyFavourite(it)
-        }) {
+        },
+            {
+                Log.d("Doppio click?", "setupUi: $it")
+                sharedViewModel.selectedId.value = it
+                findNavController().navigate(R.id.action_global_commentScreenFragment)
+            }) {
             if (it.url.length > 4) {
                 callIntentToShowWebsite(it)
             } else {
@@ -154,9 +166,13 @@ class NewStoriesFragment : Fragment() {
         startActivity(urlIntent)
     }
 
-    private fun setPullToRefresh() {
+    private fun setPullToRefresh(position: Int?) {
         binding.swipeToRefresh.setOnRefreshListener {
-            viewModel.retrieveNewStories()
+            when(position){
+                0 -> viewModel.retrieveNewStories()
+                1 -> viewModel.retrieveTopStories()
+                2 -> viewModel.retrieveBestStories()
+            }
         }
     }
 
